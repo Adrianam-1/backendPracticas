@@ -5,12 +5,23 @@ import productController from "../controllers/productsController.js";
 //que tendrá el endpoint
 const router = express.Router();
 
-router.route("/")
-.get(productController.getProducts)
-.post(productController.insertProducts);
+router
+  .route("/")
+  .get(productController.getProducts)
+  .post(productController.insertProducts);
 
-router.route("/:id")
-.put(productController.updateProducts)
-.delete(productController.deleteProducts);
+router.route("/searchByName").post(productController.searchByName);
+
+router.route("/low-stock").get(productController.getLowStock);
+
+router.route("/price-range").post(productController.getProductsByPriceRange);
+
+router.route("/count").get(productController.countProducts);
+
+router
+  .route("/:id")
+  .get(productController.getProductById)
+  .put(productController.updateProducts)
+  .delete(productController.deleteProducts);
 
 export default router;

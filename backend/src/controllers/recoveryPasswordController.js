@@ -7,7 +7,6 @@ import HTMLRecoveryEmail from "../utils/sendMailRecoveryPassword.js";
 import { config } from "../config.js";
 
 import customerModel from "../models/customers.js";
-import teachersModel from "../models/teachers.js"
 
 //Array de funciones
 const recoveryPasswordController = {};
@@ -20,17 +19,7 @@ recoveryPasswordController.requestCode = async (req, res) => {
     //Validar que el correo si esté en la BD
     const userFound = await customerModel.findOne({ email });
 
-    let userType = ""
-
-    if(userFound){
-       userType = "customer"
-
-    }else{
-       const userFound = await teachersModel.findOne({ email });
-       if(userFound){
-       userType = "teacher"
-    }
-    }
+ 
 
     if (!userFound) {
       return res.status(404).json({ message: "user not found" });
